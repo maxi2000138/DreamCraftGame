@@ -1,4 +1,6 @@
-﻿using App.Scripts.Game.Infrastructure.Systems;
+﻿using App.Scripts.Game.Features.Input;
+using App.Scripts.Game.Features.Units.Character;
+using App.Scripts.Game.Infrastructure.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems.Factory;
 
 namespace App.Scripts.Game.Features
@@ -7,7 +9,8 @@ namespace App.Scripts.Game.Features
   {
     public BattleFeature(ISystemFactory systems)
     {
-      
+      Add(systems.Create<InputFeature>());
+      Add(systems.Create<CharacterFeature>());
     }
   }
 }

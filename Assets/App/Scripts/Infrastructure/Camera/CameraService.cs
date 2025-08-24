@@ -25,6 +25,7 @@ namespace App.Scripts.Infrastructure.Camera
             _cameraZoomIn.Priority = type == ScreenType.Game ? 100 : 0;
             _cameraZoomOut.Priority = type == ScreenType.Game ? 0 : 100;
         }
+        Vector3 ICameraService.ScreenToWorldPoint(Vector3 screenPoint) => _camera.ScreenToWorldPoint(screenPoint);
 
         void ICameraService.Cleanup()
         {

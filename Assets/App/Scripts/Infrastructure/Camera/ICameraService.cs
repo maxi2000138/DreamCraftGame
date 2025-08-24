@@ -8,6 +8,7 @@ namespace App.Scripts.Infrastructure.Camera
     UnityEngine.Camera Camera { get; }
     void SetTarget(Transform target);
     void ActivateCamera(ScreenType type);
+    Vector3 ScreenToWorldPoint(Vector3 screenPoint);
     void Cleanup();
   }
 }

@@ -10,8 +10,8 @@ namespace App.Scripts.Game.Infrastructure.Systems.Systems
     {
       _registrationContainer = registrationContainer;
     }
-    
-    public ISystem Create<T>() where T : class, ISystem, new()
+
+    ISystem ISystemFactory.Create<T>()
     {
       return _registrationContainer.Create<T>();
     }

@@ -1,4 +1,6 @@
 using App.Scripts.Game.Features;
+using App.Scripts.Game.Features.Input.Services;
+using App.Scripts.Game.Features.Units.Shared.Services;
 using App.Scripts.Game.Infrastructure.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems.Factory;
@@ -14,10 +16,11 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
     public override void Configure(IRegistrationContainer container)
     {
       container.Register<IRegistrationContainer>().FromInstance(container);
+
+      container.Register<IUnitMover, UnitMover>();
       
       container.Register<ISystemFactory, SystemFactory>();
       container.Register<SystemsContainer>();
-      
       container.Register<BattleFeature>();
     }
     
