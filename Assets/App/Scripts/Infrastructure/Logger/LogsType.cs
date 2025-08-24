@@ -4,5 +4,6 @@
   {
     Infrastructure  = 0,
     Pool            = 1,
+    DI              = 2,
   }
 }
