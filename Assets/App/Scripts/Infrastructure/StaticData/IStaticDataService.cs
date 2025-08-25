@@ -13,5 +13,6 @@ namespace App.Scripts.Infrastructure.StaticData
         CharacterConfig CharacterConfig();
         EnemySpawnConfig EnemySpawnConfig();
         EnemyConfig EnemyConfig();
+        UiConfig UiConfig();
     }
 }

@@ -2,6 +2,7 @@
 using App.Scripts.Infrastructure.AssetData;
 using App.Scripts.Infrastructure.Camera;
 using App.Scripts.Infrastructure.Curtain;
+using App.Scripts.Infrastructure.GUI.Factory;
 using App.Scripts.Infrastructure.GUI.Service;
 using App.Scripts.Infrastructure.Logger;
 using App.Scripts.Infrastructure.Pool;
@@ -27,6 +28,7 @@ namespace App.Scripts.Infrastructure.LifeTime
       container.Register<IGuiService>().FromInstance(_guiService);
       
       container.Register<DebugLogger>();
+      container.Register<IUIFactory, UIFactory>();
       container.Register<IAssetService, AssetService>();
       container.Register<IInputService, PcInputService>();
       container.Register<IStaticDataService, StaticDataService>();

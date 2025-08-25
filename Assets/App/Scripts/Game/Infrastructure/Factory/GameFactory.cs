@@ -3,7 +3,6 @@ using App.Scripts.Game.Features.Units.Enemy.Components;
 using App.Scripts.Game.Features.Units.Enemy.Data;
 using App.Scripts.Infrastructure.Pool;
 using App.Scripts.Infrastructure.StaticData;
-using UnityEngine;
 
 namespace App.Scripts.Game.Infrastructure.Factory
 {
@@ -11,11 +10,14 @@ namespace App.Scripts.Game.Infrastructure.Factory
   {
     private readonly IObjectPoolService _poolService;
     private readonly IStaticDataService _staticData;
-    
-    public GameFactory(IObjectPoolService poolService, IStaticDataService staticData)
+    private readonly LevelModel _levelModel;
+
+    public GameFactory(IObjectPoolService poolService, IStaticDataService staticData, LevelModel levelModel)
     {
       _poolService = poolService;
+      
       _staticData = staticData;
+      _levelModel = levelModel;
     }
     
     public EnemyComponent CreateEnemy(EnemyType enemyType)
@@ -25,6 +27,8 @@ namespace App.Scripts.Game.Infrastructure.Factory
       EnemyComponent enemy = _poolService
         .SpawnObject(enemyData.Prefab)
         .GetComponent<EnemyComponent>();
+      
+      _levelModel.AddEnemy(enemy);
       
       enemy.CharacterController.SetSpeed(enemyData.Speed);
       

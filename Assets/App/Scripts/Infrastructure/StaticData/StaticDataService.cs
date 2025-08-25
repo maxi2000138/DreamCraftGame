@@ -18,12 +18,14 @@ namespace App.Scripts.Infrastructure.StaticData
         private CharacterConfig _characterConfig;
         private EnemyConfig _enemyConfig;
         private EnemySpawnConfig _enemySpawnConfig;
+        private UiConfig _uiConfig;
 
         LoggerConfig IStaticDataService.LoggerConfig() => _loggerConfig ??= LoadConfig<LoggerConfig>();
         ScreensConfig IStaticDataService.ScreensConfig() => _screensConfig;
         CharacterConfig IStaticDataService.CharacterConfig() => _characterConfig;
-        EnemyConfig IStaticDataService.EnemyConfig() => LoadConfig<EnemyConfig>();
-        EnemySpawnConfig IStaticDataService.EnemySpawnConfig() => LoadConfig<EnemySpawnConfig>();
+        EnemyConfig IStaticDataService.EnemyConfig() => _enemyConfig;
+        EnemySpawnConfig IStaticDataService.EnemySpawnConfig() => _enemySpawnConfig;
+        UiConfig IStaticDataService.UiConfig() => _uiConfig;
         
         
         public StaticDataService(IAssetService assetService)
@@ -33,11 +35,12 @@ namespace App.Scripts.Infrastructure.StaticData
 
         void IStaticDataService.Load()
         {
+            _uiConfig ??= LoadConfig<UiConfig>();
             _enemyConfig ??= LoadConfig<EnemyConfig>();
             _loggerConfig ??= LoadConfig<LoggerConfig>();
-            _enemySpawnConfig ??= LoadConfig<EnemySpawnConfig>();
             _screensConfig ??= LoadConfig<ScreensConfig>();
             _characterConfig ??= LoadConfig<CharacterConfig>();
+            _enemySpawnConfig ??= LoadConfig<EnemySpawnConfig>();
         }
         
         private T LoadConfig<T>() where T : ScriptableObject => _assetService.LoadFromResources<T>(DataFolder + typeof(T).Name);

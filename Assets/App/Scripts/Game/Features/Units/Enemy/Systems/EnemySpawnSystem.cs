@@ -34,9 +34,14 @@
       protected override void OnEnableSystem()
       {
         base.OnEnableSystem();
-
-        Observable.Interval(TimeSpan.FromSeconds(_staticData.EnemySpawnConfig().SpawnDelay))
-          .Subscribe(_ => SpawnEnemy())
+        
+        _levelModel.StartGame
+          .Subscribe(_ =>
+          {
+            Observable.Interval(TimeSpan.FromSeconds(_staticData.EnemySpawnConfig().SpawnDelay))
+              .Subscribe(__ => SpawnEnemy())
+              .AddTo(LifetimeDisposable);
+          })
           .AddTo(LifetimeDisposable);
       }
 

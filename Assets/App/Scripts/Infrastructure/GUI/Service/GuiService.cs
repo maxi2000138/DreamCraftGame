@@ -28,7 +28,7 @@ namespace App.Scripts.Infrastructure.GUI.Service
         oldScreen.SetActive(false);
       }
             
-      _cameraService.ActivateCamera(screen.GetScreenType());
+      //_cameraService.ActivateCamera(screen.GetScreenType());
             
       _screens.Push(screen);
     }
@@ -42,7 +42,7 @@ namespace App.Scripts.Infrastructure.GUI.Service
             
       if (_screens.TryPeek(out BaseScreen screen))
       {
-        _cameraService.ActivateCamera(screen.GetScreenType());
+        //_cameraService.ActivateCamera(screen.GetScreenType());
 
         screen.SetActive(true);
       }

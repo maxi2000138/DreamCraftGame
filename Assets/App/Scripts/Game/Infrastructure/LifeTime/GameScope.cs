@@ -5,6 +5,7 @@ using App.Scripts.Game.Infrastructure.Factory;
 using App.Scripts.Game.Infrastructure.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems.Factory;
+using App.Scripts.Infrastructure.GUI.Factory;
 using MyContainer.Container;
 using UnityEngine;
 
@@ -32,7 +33,8 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
     {
       base.AfterInitialize(container);
       
-      _gameEntryPoint.Construct(container.Resolve<SystemsContainer>());
+      _gameEntryPoint.Construct(container.Resolve<SystemsContainer>(), container.Resolve<IUIFactory>(), 
+        container.Resolve<LevelModel>());
       _gameEntryPoint.Entry();
     }
   }
