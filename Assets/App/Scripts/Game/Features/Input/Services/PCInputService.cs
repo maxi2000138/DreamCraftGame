@@ -41,7 +41,7 @@ namespace App.Scripts.Game.Features.Input.Services
       if (UnityEngine.Input.GetMouseButtonDown(0))
       {
         Vector3 mousePos = UnityEngine.Input.mousePosition;
-        Vector3 worldPos = _cameraService.ScreenToWorldPoint(mousePos);
+        Vector3 worldPos = _cameraService.Camera.ScreenToWorldPoint(mousePos);
 
         _clickSubject.OnNext(worldPos);
       }

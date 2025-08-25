@@ -9,11 +9,13 @@ namespace App.Scripts.Game.Features.Units.Character.Systems
   {
     private readonly IStaticDataService _staticData;
     private readonly ICameraService _cameraService;
+    private readonly LevelModel _levelModel;
 
-    public CharacterInitializeSystem(IStaticDataService staticData, ICameraService cameraService)
+    public CharacterInitializeSystem(IStaticDataService staticData, ICameraService cameraService, LevelModel levelModel)
     {
       _staticData = staticData;
       _cameraService = cameraService;
+      _levelModel = levelModel;
     }
     
     protected override void OnEnableComponent(CharacterComponent component)
@@ -25,6 +27,7 @@ namespace App.Scripts.Game.Features.Units.Character.Systems
     
     private void InitializeCharacter(CharacterComponent component)
     {
+      _levelModel.SetCharacter(component);
       component.CharacterController.SetSpeed(_staticData.CharacterConfig().Speed);
       _cameraService.SetTarget(component.transform);
     }

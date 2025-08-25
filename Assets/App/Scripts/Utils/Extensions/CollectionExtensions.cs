@@ -24,7 +24,7 @@ namespace App.Scripts.Utils.Extensions
 
         public static void Foreach<T>(this IReadOnlyList<T> collection, Action<T> action)
         {
-            for (int i = collection.Count - 1; i >= 0; i--) action.Invoke(collection[i]);
+            for (int i = 0; i < collection.Count; i++) action.Invoke(collection[i]);
         }
 
         public static bool HasIndex<T>(this IList<T> collection, int index)
