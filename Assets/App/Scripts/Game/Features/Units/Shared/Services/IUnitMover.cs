@@ -8,5 +8,7 @@ namespace App.Scripts.Game.Features.Units.Shared.Services
     void Move(IUnit unit, Vector2 direction);
     void Rotate(IUnit unit);
     void UseGravity(IUnit unit);
+    void Resume();
+    void Stop();
   }
 }

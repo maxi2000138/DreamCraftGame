@@ -2,7 +2,6 @@
 {
   public static class Scenes
   {
-    public const string BOOTSTRAP = "BootstrapScene";
     public const string GAMEPLAY = "GameScene";
   }
 }

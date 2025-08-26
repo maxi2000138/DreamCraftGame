@@ -4,7 +4,8 @@
     {
         Game      = 0,
         Lobby     = 1,
+        GameEnd   = 2,
         
-        None     = byte.MaxValue
+        None     = byte.MaxValue,
     }
 }

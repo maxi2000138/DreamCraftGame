@@ -9,6 +9,7 @@ using App.Scripts.Infrastructure.GUI.Factory;
 using App.Scripts.Infrastructure.GUI.Service;
 using App.Scripts.Infrastructure.Logger;
 using App.Scripts.Infrastructure.Pool;
+using App.Scripts.Infrastructure.SceneLoader;
 using App.Scripts.Infrastructure.StaticData;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ namespace App.Scripts.Infrastructure.LifeTime
       container.Register<IUIFactory, UIFactory>();
       container.Register<IAssetService, AssetService>();
       container.Register<IInputService, PcInputService>();
+      container.Register<ISceneLoaderService, SceneLoaderService>();
       container.Register<IStaticDataService, StaticDataService>();
       container.Register<IObjectPoolService, ObjectPoolService>().WithArguments(transform);
       

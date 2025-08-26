@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace App.Scripts.Infrastructure.DI.Registration.Container
 {
     public interface IRegistrationContainer
@@ -7,5 +9,6 @@ namespace App.Scripts.Infrastructure.DI.Registration.Container
         RegistrationData CurrentRegistrationData { get; }
         void BuildContainer();
         T Create<T>() where T : class;
+        IEnumerable<T> ResolveMany<T>() where T : class;
     }
 }

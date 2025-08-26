@@ -3,6 +3,9 @@ using App.Scripts.Game.Features.Units.Shared.Services;
 using App.Scripts.Game.Features.Weapon.Factory;
 using App.Scripts.Game.Features.Weapon.Variations;
 using App.Scripts.Game.Infrastructure.Factory;
+using App.Scripts.Game.Infrastructure.StateMachine;
+using App.Scripts.Game.Infrastructure.StateMachine.States;
+using App.Scripts.Game.Infrastructure.StateMachine.States.Interfaces;
 using App.Scripts.Game.Infrastructure.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems.Factory;
@@ -28,6 +31,10 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
       
       container.Register<LevelModel>();
 
+      container.Register<IState, StateLobby>();
+      container.Register<IState, StateGame>();
+      container.Register<IState, StateGameEnd>();
+
       container.Register<ISystemFactory, SystemFactory>();
       container.Register<SystemsContainer>();
       container.Register<BattleFeature>();
@@ -37,8 +44,8 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
     {
       base.AfterInitialize(container);
       
-      _gameEntryPoint.Construct(container.Resolve<SystemsContainer>(), container.Resolve<IUIFactory>(), 
-        container.Resolve<LevelModel>());
+      IGameStateMachine gameStateMachine = new GameStateMachine(container.ResolveMany<IState>());
+      _gameEntryPoint.Construct(container.Resolve<SystemsContainer>(), gameStateMachine);
       
       _gameEntryPoint.Entry();
     }

@@ -53,6 +53,15 @@ namespace App.Scripts.Infrastructure.GUI.Screens
                 .SetLink(gameObject);
         }
         
+        protected Tween BounceButton()
+        {
+            return _button.transform
+                .DOScale(Vector3.one * 1.05f, 0.5f)
+                .SetEase(Ease.InOutQuad)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetLink(gameObject);
+        }
+        
         private void SetCanvasEnable(bool isEnable)
         {
             _canvasGroup.interactable = isEnable;

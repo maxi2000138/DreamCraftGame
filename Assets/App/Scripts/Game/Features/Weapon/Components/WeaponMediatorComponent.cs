@@ -18,5 +18,11 @@ namespace App.Scripts.Game.Features.Weapon.Components
 
       CurrentWeapon = weapon;
     }
+
+    public override void OnComponentDisable()
+    {
+      base.OnComponentDisable();
+      CurrentWeapon = null;
+    }
   }
 }

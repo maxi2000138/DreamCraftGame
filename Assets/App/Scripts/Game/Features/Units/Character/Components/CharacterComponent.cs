@@ -18,5 +18,5 @@ namespace App.Scripts.Game.Features.Units.Character.Components
     
     public Vector3 Position => transform.position;
     public float Height => 1f;
-  }
+   }
 }

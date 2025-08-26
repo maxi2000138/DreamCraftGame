@@ -1,6 +1,7 @@
 ﻿using App.Scripts.Game.Features.Units.Shared.Interfaces;
 using App.Scripts.Infrastructure.Camera;
 using App.Scripts.Utils.Constants;
+using R3;
 using UnityEngine;
 
 namespace App.Scripts.Game.Features.Units.Shared.Services
@@ -11,18 +12,28 @@ namespace App.Scripts.Game.Features.Units.Shared.Services
     private const float LerpRotate = 0.25f;
 
     private readonly ICameraService _cameraService;
+    private readonly LevelModel _levelModel;
+    private CompositeDisposable _disposable = new CompositeDisposable();
     
-    public UnitMover(ICameraService cameraService)
+    private bool _allowMove = false;
+
+    public UnitMover(ICameraService cameraService, LevelModel levelModel)
     {
       _cameraService = cameraService;
+      _levelModel = levelModel;
     }
+
+    void IUnitMover.Resume() => _allowMove = true;
+    void IUnitMover.Stop() => _allowMove = false;
     
     void IUnitMover.Move(IUnit unit, Vector2 direction)
     {
+      if(_allowMove == false) return;
+      
       float angle = MoveAngles(direction); 
 
       Vector3 moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
-      Vector3 nextPosition = unit.Position + moveDirection * unit.CharacterController.Speed * Time.deltaTime;
+      Vector3 nextPosition = unit.Position + moveDirection * (unit.CharacterController.Speed * Time.deltaTime);
 
       Ray ray = new Ray { origin = nextPosition, direction = Vector3.down };
       if (!Physics.Raycast(ray, RayDistance, Layers.Ground))
@@ -33,24 +44,28 @@ namespace App.Scripts.Game.Features.Units.Shared.Services
                 
       moveDirection.y = unit.CharacterController.IsGrounded ? 0f : Physics.gravity.y;
 
-      unit.CharacterController.CharacterController.Move(moveDirection * unit.CharacterController.Speed * Time.deltaTime);
+      unit.CharacterController.CharacterController.Move(moveDirection * (unit.CharacterController.Speed * Time.deltaTime));
     }
 
     void IUnitMover.Rotate(IUnit unit)
     {
+      if(_allowMove == false) return;
+      
       float lerpAngle = Mathf.LerpAngle(unit.CharacterController.Angle, MoveAngles(unit.CharacterController.CharacterController), LerpRotate);
       unit.CharacterController.transform.rotation = Quaternion.Euler(0f, lerpAngle, 0f);
     }
 
     void IUnitMover.UseGravity(IUnit unit)
     {
+      if(_allowMove == false) return;
+      
       if (unit.CharacterController.IsGrounded) return;
             
       Vector3 move = Vector3.zero;
       move.y = Physics.gravity.y;
-      unit.CharacterController.CharacterController.Move(move * unit.CharacterController.Speed * Time.deltaTime);
+      unit.CharacterController.CharacterController.Move(move * (unit.CharacterController.Speed * Time.deltaTime));
     }
-    
+
     private float MoveAngles(CharacterController characterController) => 
       MoveAngles(new Vector2(characterController.velocity.x, characterController.velocity.z));
     

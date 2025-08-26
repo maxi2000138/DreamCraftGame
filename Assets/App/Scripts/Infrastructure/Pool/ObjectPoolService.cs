@@ -6,6 +6,7 @@ using App.Scripts.Infrastructure.Pool.Item;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
+using Object = System.Object;
 
 namespace App.Scripts.Infrastructure.Pool
 {
@@ -90,7 +91,7 @@ namespace App.Scripts.Infrastructure.Pool
 	    {
 		    foreach (KeyValuePair<MonoSpawnableItem, ObjectPool<MonoSpawnableItem>> keyValuePair in _instanceLookup)
 		    {
-			    keyValuePair.Key.gameObject.SetActive(false);
+			    keyValuePair.Key.OnDespawned();
 			    keyValuePair.Value.ReleaseAll();
 		    }
 		    
@@ -126,7 +127,8 @@ namespace App.Scripts.Infrastructure.Pool
 
 		    ObjectPool<MonoSpawnableItem> pool = _prefabLookup[prefab];
 
-		    MonoSpawnableItem clone = pool.GetItem();
+		    MonoSpawnableItem clone = null;
+		    while (clone == null) clone = pool.GetItem();
 		    
 		    clone.transform.position = position;
 		    clone.transform.rotation = rotation;

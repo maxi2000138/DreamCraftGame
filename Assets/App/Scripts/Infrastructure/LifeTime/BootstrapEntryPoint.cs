@@ -32,8 +32,6 @@ namespace App.Scripts.Infrastructure.LifeTime
       _staticData.Load();
 
       InitGlobalServices();
-      
-      _loadingCurtain.Hide();
     }
     
     private void InitGlobalServices()

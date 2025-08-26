@@ -1,12 +1,8 @@
+using App.Scripts.Game.Infrastructure.StateMachine;
+using App.Scripts.Game.Infrastructure.StateMachine.States;
 using App.Scripts.Game.Infrastructure.Systems;
-using App.Scripts.Infrastructure.GUI.Factory;
-using App.Scripts.Infrastructure.GUI.Screens;
 using App.Scripts.Infrastructure.LifeTime;
-using App.Scripts.Infrastructure.UniqueId;
-using App.Scripts.Utils.Extensions;
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Linq;
-using R3;
 using UnityEngine;
 
 namespace App.Scripts.Game.Infrastructure.LifeTime
@@ -14,52 +10,20 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
   public class GameEntryPoint : MonoBehaviour, IEntryPoint
   {
     private SystemsContainer _systemsContainer;
-    private IUIFactory _uiFactory;
-    private LevelModel _levelModel;
     
-    private CompositeDisposable _transitionDisposable = new();
+    private IGameStateMachine _gameStateMachine;
 
-    public void Construct(SystemsContainer systemsContainer, IUIFactory uiFactory, LevelModel levelModel)
+    public void Construct(SystemsContainer systemsContainer, IGameStateMachine gameStateMachine)
     {
-      _levelModel = levelModel;
-      _uiFactory = uiFactory;
+      _gameStateMachine = gameStateMachine;
       _systemsContainer = systemsContainer;
     }
     
     public void Entry()
     {
-      EntryGame().Forget();
-    }
-    
-    private async UniTaskVoid EntryGame()
-    {
-      InitGameServices();
       Initialize();
-
-      BaseScreen screen = _uiFactory.CreateScreen(ScreenType.Lobby);
-      await screen.CloseScreen.ToUniTask();
-      
-      _uiFactory.CreateScreen(ScreenType.Game);
-      _levelModel.StartGame.Execute(Unit.Default);
-      
-      
+      _gameStateMachine.Enter<StateLobby>().Forget();
     }
-    
-    private void SubscribeOnLoose()
-    {
-      _levelModel.Character.Health.CurrentHealth
-        .First(_ => CharacterIsDeath())
-        .Subscribe(_ => Loose())
-        .AddTo(_transitionDisposable);
-    }
-    
-    private void InitGameServices()
-    {
-      GameUniqueId.Reset();
-    }
-    
-    private bool CharacterIsDeath() => _levelModel.Character.Health.IsAlive == false;
-
 
     private void Initialize()
     {

@@ -45,13 +45,13 @@ namespace App.Scripts.Game.Infrastructure.Systems.Components
   {
     private void OnEnable()
     {
-      base.OnComponentEnable();
+      OnComponentEnable();
       ComponentsContainer<T>.Registered(this);
     }
 
     private void OnDisable()
     {
-      base.OnComponentDisable();
+      OnComponentDisable();
       ComponentsContainer<T>.Unregistered(this);
     }
   }

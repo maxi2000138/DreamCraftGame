@@ -10,12 +10,14 @@ namespace App.Scripts.Game.Features.Units.Enemy.Systems
 {
   public class EnemyMoveToCharacterSystem : SystemComponent<EnemyComponent>
   {
+    private const float MinSqrDistance = 1f;
+
     private readonly LevelModel _levelModel;
     private readonly IUnitMover _unitMover;
 
     private Vector3 _direction;
-    private Vector2 _vector2Direction;
-    
+    private Vector3 _distance;
+
     public EnemyMoveToCharacterSystem(LevelModel levelModel, IUnitMover unitMover)
     {
       _levelModel = levelModel;
@@ -33,9 +35,14 @@ namespace App.Scripts.Game.Features.Units.Enemy.Systems
     
     private void MoveToCharacter(EnemyComponent enemy)
     {
-      _direction = (_levelModel.Character.Position - enemy.Position).normalized;
+      _distance = _levelModel.Character.Position - enemy.Position;
+
+      if (_distance.sqrMagnitude > MinSqrDistance)
+      { 
+        _direction = _distance.normalized;
+        _unitMover.Move(enemy, new Vector2(_direction.x, _direction.z));
+      }
       
-      _unitMover.Move(enemy, new Vector2(_direction.x, _direction.z));
       _unitMover.UseGravity(enemy);
     }
   }

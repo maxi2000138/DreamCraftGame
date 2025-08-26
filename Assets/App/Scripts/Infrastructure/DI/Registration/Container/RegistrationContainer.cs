@@ -35,6 +35,12 @@ namespace App.Scripts.Infrastructure.DI.Registration.Container
             return registration.Resolve<T>(_containerInstantiator);
         }
         
+        public IEnumerable<T> ResolveMany<T>() where T : class
+        {
+            Registration registration = GetRegistration<T>();
+            return registration.ResolveMany<T>(_containerInstantiator);
+        }
+        
         public T Create<T>() where T : class
         {
             Registration registration = new Registration();
