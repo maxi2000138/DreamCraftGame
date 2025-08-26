@@ -1,35 +1,37 @@
 using System;
 using System.Collections.Generic;
-
-public class RegistrationData
+namespace App.Scripts.Infrastructure.DI.Registration
 {
-    public Dictionary<Type, Registration> Registrations { get; private set; }
+    public class RegistrationData
+    {
+        public Dictionary<Type, Registration> Registrations { get; private set; }
 
-    private List<RegistrationBuilder> _builders = new();
+        private List<RegistrationBuilder> _builders = new();
     
-    public void AddRegistrationBuilder(RegistrationBuilder registrationBuilder)
-    {
-        _builders.Add(registrationBuilder);
-    }
-
-    public void Build()
-    {
-        Registrations = new();
-        
-        foreach (RegistrationBuilder builder in _builders) 
+        public void AddRegistrationBuilder(RegistrationBuilder registrationBuilder)
         {
-            foreach (Type interfaceType in builder.InterfaceTypes)
+            _builders.Add(registrationBuilder);
+        }
+
+        public void Build()
+        {
+            Registrations = new();
+        
+            foreach (RegistrationBuilder builder in _builders) 
             {
-                AddRegistration(interfaceType, builder);
+                foreach (Type interfaceType in builder.InterfaceTypes)
+                {
+                    AddRegistration(interfaceType, builder);
+                }
             }
         }
-    }
 
-    private void AddRegistration(Type interfaceType, RegistrationBuilder registrationBuilder)
-    {
-        if(Registrations.ContainsKey(interfaceType) == false)
-            Registrations.Add(interfaceType, new Registration());
+        private void AddRegistration(Type interfaceType, RegistrationBuilder registrationBuilder)
+        {
+            if(Registrations.ContainsKey(interfaceType) == false)
+                Registrations.Add(interfaceType, new Registration());
             
-        Registrations[interfaceType].AddBuilder(registrationBuilder);
+            Registrations[interfaceType].AddBuilder(registrationBuilder);
+        }
     }
 }

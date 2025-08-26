@@ -2,13 +2,14 @@
 using App.Scripts.Infrastructure.AssetData;
 using App.Scripts.Infrastructure.Camera;
 using App.Scripts.Infrastructure.Curtain;
+using App.Scripts.Infrastructure.DI.Registration.Container;
+using App.Scripts.Infrastructure.DI.Registration.Container.Extensions;
+using App.Scripts.Infrastructure.DI.Scopes;
 using App.Scripts.Infrastructure.GUI.Factory;
 using App.Scripts.Infrastructure.GUI.Service;
 using App.Scripts.Infrastructure.Logger;
 using App.Scripts.Infrastructure.Pool;
 using App.Scripts.Infrastructure.StaticData;
-using MyContainer.Container;
-using Scopes;
 using UnityEngine;
 
 namespace App.Scripts.Infrastructure.LifeTime

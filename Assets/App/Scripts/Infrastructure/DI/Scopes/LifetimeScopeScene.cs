@@ -1,12 +1,15 @@
-using MyContainer.Container;
+using App.Scripts.Infrastructure.DI.Kernel;
+using App.Scripts.Infrastructure.DI.Registration.Container;
 using UnityEngine;
-
-[DefaultExecutionOrder(-5000)]
-public abstract class LifetimeScopeScene : LifetimeScope
+namespace App.Scripts.Infrastructure.DI.Scopes
 {
-    protected override void BeforeInitialize(IRegistrationContainer container)
+    [DefaultExecutionOrder(-5000)]
+    public abstract class LifetimeScopeScene : LifetimeScope
     {
-        base.BeforeInitialize(container);
-        KernelMyContainer.Instance.TryInitProjectScope();
+        protected override void BeforeInitialize(IRegistrationContainer container)
+        {
+            base.BeforeInitialize(container);
+            KernelMyContainer.Instance.TryInitProjectScope();
+        }
     }
 }

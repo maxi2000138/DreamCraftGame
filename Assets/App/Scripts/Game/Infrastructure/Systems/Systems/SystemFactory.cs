@@ -1,5 +1,5 @@
 ﻿using App.Scripts.Game.Infrastructure.Systems.Systems.Factory;
-using MyContainer.Container;
+using App.Scripts.Infrastructure.DI.Registration.Container;
 
 namespace App.Scripts.Game.Infrastructure.Systems.Systems
 {

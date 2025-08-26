@@ -1,6 +1,6 @@
-﻿namespace App.Scripts.Game.Features.Units.Shared.Data
+﻿namespace App.Scripts.Game.Features.Units.Shared.Interfaces
 {
-  public interface IUnit : ICharacterControllerComponent, IPosition
+  public interface IUnit : ICharacterControllerComponent, IPosition, IHealth, IHeight
   {
     
   }

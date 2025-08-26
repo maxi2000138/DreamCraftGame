@@ -7,7 +7,7 @@ namespace App.Scripts.Infrastructure.Camera
   {
     UnityEngine.Camera Camera { get; }
     void SetTarget(Transform target);
-    void ActivateCamera(ScreenType type);
     void Cleanup();
+    bool IsOnScreen(Vector3 viewportPoint);
   }
 }

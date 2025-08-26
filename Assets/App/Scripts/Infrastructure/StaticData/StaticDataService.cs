@@ -1,5 +1,6 @@
 ﻿using App.Scripts.Game.Features.Units.Character._Configs;
 using App.Scripts.Game.Features.Units.Enemy._Configs;
+using App.Scripts.Game.Features.Weapon._Configs;
 using App.Scripts.Infrastructure.AssetData;
 using App.Scripts.Infrastructure.GUI._Configs;
 using App.Scripts.Infrastructure.Logger._Configs;
@@ -19,6 +20,7 @@ namespace App.Scripts.Infrastructure.StaticData
         private EnemyConfig _enemyConfig;
         private EnemySpawnConfig _enemySpawnConfig;
         private UiConfig _uiConfig;
+        private WeaponsConfig _weaponConfig;
 
         LoggerConfig IStaticDataService.LoggerConfig() => _loggerConfig ??= LoadConfig<LoggerConfig>();
         ScreensConfig IStaticDataService.ScreensConfig() => _screensConfig;
@@ -26,6 +28,7 @@ namespace App.Scripts.Infrastructure.StaticData
         EnemyConfig IStaticDataService.EnemyConfig() => _enemyConfig;
         EnemySpawnConfig IStaticDataService.EnemySpawnConfig() => _enemySpawnConfig;
         UiConfig IStaticDataService.UiConfig() => _uiConfig;
+        WeaponsConfig IStaticDataService.WeaponsConfig() => _weaponConfig;
         
         
         public StaticDataService(IAssetService assetService)
@@ -38,6 +41,7 @@ namespace App.Scripts.Infrastructure.StaticData
             _uiConfig ??= LoadConfig<UiConfig>();
             _enemyConfig ??= LoadConfig<EnemyConfig>();
             _loggerConfig ??= LoadConfig<LoggerConfig>();
+            _weaponConfig ??= LoadConfig<WeaponsConfig>();
             _screensConfig ??= LoadConfig<ScreensConfig>();
             _characterConfig ??= LoadConfig<CharacterConfig>();
             _enemySpawnConfig ??= LoadConfig<EnemySpawnConfig>();

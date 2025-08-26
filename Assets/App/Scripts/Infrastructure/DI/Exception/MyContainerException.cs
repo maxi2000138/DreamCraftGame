@@ -1,9 +1,10 @@
-using System;
-
-public class MyContainerException : Exception
+namespace App.Scripts.Infrastructure.DI.Exception
 {
-    public MyContainerException(string message) : base(message)
+    public class MyContainerException : System.Exception
     {
+        public MyContainerException(string message) : base(message)
+        {
         
+        }
     }
 }

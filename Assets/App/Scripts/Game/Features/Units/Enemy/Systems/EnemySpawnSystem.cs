@@ -1,6 +1,9 @@
 ﻿  using System;
+  using App.Scripts.Game.Features.Units.Enemy._Configs;
   using App.Scripts.Game.Features.Units.Enemy.Components;
   using App.Scripts.Game.Features.Units.Enemy.Data;
+  using App.Scripts.Game.Features.Weapon.Data;
+  using App.Scripts.Game.Features.Weapon.Factory;
   using App.Scripts.Game.Infrastructure.Factory;
   using App.Scripts.Game.Infrastructure.Systems.Systems;
   using App.Scripts.Infrastructure.Camera;
@@ -20,15 +23,18 @@
       private readonly ICameraService _cameraService;
       private readonly IGameFactory _gameFactory;
       private readonly LevelModel _levelModel;
+      private readonly IWeaponFactory _weaponFactory;
 
       private CameraRelativeBounds _cameraBounds;
 
-      public EnemySpawnSystem(IStaticDataService staticData, ICameraService cameraService, IGameFactory gameFactory, LevelModel levelModel)
+      public EnemySpawnSystem(IStaticDataService staticData, ICameraService cameraService, IGameFactory gameFactory, 
+        LevelModel levelModel, IWeaponFactory weaponFactory)
       {
         _staticData = staticData;
         _cameraService = cameraService;
         _gameFactory = gameFactory;
         _levelModel = levelModel;
+        _weaponFactory = weaponFactory;
       }
 
       protected override void OnEnableSystem()
@@ -52,8 +58,17 @@
           _cameraBounds = new CameraRelativeBounds();
           _cameraBounds.SetupRelativeBounds(_cameraService.Camera, _levelModel.Character.Position);
         }
-          
-        EnemyComponent enemy = _gameFactory.CreateEnemy(RandomEnemyType());
+
+        EnemyType enemyType = RandomEnemyType();
+        EnemyData enemyData = _staticData.EnemyConfig().Enemies[enemyType];
+        EnemyComponent enemy = _gameFactory.CreateEnemy(enemyType);
+
+        enemy.Health.SetMaxHealth(enemyData.Health);
+        enemy.Health.CurrentHealth.SetValueAndForceNotify(enemyData.Health);
+        
+        enemy.WeaponMediator
+          .SetWeapon(_weaponFactory
+          .CreateWeapon(WeaponType.Knife, enemy.WeaponMediator.Container.position,enemy.WeaponMediator.Container));
 
         Vector3 position = RandomSpawnPositionOutsideCamera().AddY(HeightOffset);
         TeleportEnemyTo(enemy, position);

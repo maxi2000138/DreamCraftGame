@@ -19,12 +19,8 @@ namespace App.Scripts.Infrastructure.Camera
             _cameraZoomOut.Follow = target;
             _cameraZoomOut.LookAt = target;
         }
-
-        void ICameraService.ActivateCamera(ScreenType type)
-        {
-            _cameraZoomIn.Priority = type == ScreenType.Game ? 100 : 0;
-            _cameraZoomOut.Priority = type == ScreenType.Game ? 0 : 100;
-        }
+        
+        bool ICameraService.IsOnScreen(Vector3 viewportPoint) => viewportPoint is { x: > 0f and < 1f, y: > 0f and < 1f };
         
         void ICameraService.Cleanup()
         {

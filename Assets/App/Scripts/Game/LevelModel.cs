@@ -1,4 +1,5 @@
 ﻿using App.Scripts.Game.Features.Units.Character;
+using App.Scripts.Game.Features.Units.Character.Interfaces;
 using App.Scripts.Game.Features.Units.Enemy.Interfaces;
 using ObservableCollections;
 using R3;

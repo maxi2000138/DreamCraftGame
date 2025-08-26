@@ -1,5 +1,5 @@
-﻿using App.Scripts.Game.Features.Character.Components;
-using App.Scripts.Game.Features.Input.Services;
+﻿using App.Scripts.Game.Features.Input.Services;
+using App.Scripts.Game.Features.Units.Character.Components;
 using App.Scripts.Game.Features.Units.Shared.Services;
 using App.Scripts.Game.Infrastructure.Systems.Systems;
 using App.Scripts.Utils.Extensions;

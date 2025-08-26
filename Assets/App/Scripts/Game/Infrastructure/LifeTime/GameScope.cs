@@ -1,12 +1,15 @@
 using App.Scripts.Game.Features;
-using App.Scripts.Game.Features.Input.Services;
 using App.Scripts.Game.Features.Units.Shared.Services;
+using App.Scripts.Game.Features.Weapon.Factory;
+using App.Scripts.Game.Features.Weapon.Variations;
 using App.Scripts.Game.Infrastructure.Factory;
 using App.Scripts.Game.Infrastructure.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems;
 using App.Scripts.Game.Infrastructure.Systems.Systems.Factory;
+using App.Scripts.Infrastructure.DI.Registration.Container;
+using App.Scripts.Infrastructure.DI.Registration.Container.Extensions;
+using App.Scripts.Infrastructure.DI.Scopes;
 using App.Scripts.Infrastructure.GUI.Factory;
-using MyContainer.Container;
 using UnityEngine;
 
 namespace App.Scripts.Game.Infrastructure.LifeTime
@@ -21,6 +24,7 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
 
       container.Register<IUnitMover, UnitMover>();
       container.Register<IGameFactory, GameFactory>();
+      container.Register<IWeaponFactory, WeaponFactory>();
       
       container.Register<LevelModel>();
 
@@ -35,6 +39,7 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
       
       _gameEntryPoint.Construct(container.Resolve<SystemsContainer>(), container.Resolve<IUIFactory>(), 
         container.Resolve<LevelModel>());
+      
       _gameEntryPoint.Entry();
     }
   }

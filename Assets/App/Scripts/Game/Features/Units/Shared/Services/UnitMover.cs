@@ -1,4 +1,4 @@
-﻿using App.Scripts.Game.Features.Units.Shared.Data;
+﻿using App.Scripts.Game.Features.Units.Shared.Interfaces;
 using App.Scripts.Infrastructure.Camera;
 using App.Scripts.Utils.Constants;
 using UnityEngine;

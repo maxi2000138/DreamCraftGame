@@ -1,4 +1,4 @@
-namespace MyContainer.Container
+namespace App.Scripts.Infrastructure.DI.Registration.Container
 {
     public interface IRegistrationContainer
     {

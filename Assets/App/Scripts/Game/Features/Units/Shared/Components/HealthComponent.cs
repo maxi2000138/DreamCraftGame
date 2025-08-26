@@ -3,7 +3,7 @@ using App.Scripts.Utils.Constants;
 using R3;
 using UnityEngine;
 
-namespace App.Scripts.Game.Features.Units.Shared.Data.Components
+namespace App.Scripts.Game.Features.Units.Shared.Components
 {
   public class HealthComponent : MonoComponent<HealthComponent>
   {

@@ -10,6 +10,8 @@ namespace App.Scripts.Game.Features.Units.Character
     {
       Add(systems.Create<CharacterInitializeSystem>());
       Add(systems.Create<CharacterMoveSystem>());
+      
+      Add(systems.Create<CharacterHealthViewUpdateSystem>());
     }
   }
 }

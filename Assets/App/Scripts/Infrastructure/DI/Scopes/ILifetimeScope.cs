@@ -1,7 +1,7 @@
 ﻿using System;
-using MyContainer.Container;
+using App.Scripts.Infrastructure.DI.Registration.Container;
 
-namespace Scopes
+namespace App.Scripts.Infrastructure.DI.Scopes
 {
   public interface ILifetimeScope : IDisposable
   {

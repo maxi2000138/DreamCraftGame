@@ -1,43 +1,46 @@
-using MyContainer.Container;
-using Scopes;
+using App.Scripts.Infrastructure.DI.Installers;
+using App.Scripts.Infrastructure.DI.Kernel;
+using App.Scripts.Infrastructure.DI.Registration.Container;
 using UnityEngine;
-
-public abstract class LifetimeScope : MonoBehaviour, IInstaller, ILifetimeScope
+namespace App.Scripts.Infrastructure.DI.Scopes
 {
-    private IRegistrationContainer _registrationContainer;
-    IRegistrationContainer ILifetimeScope.RegistrationContainer => _registrationContainer;
-    
-    private bool _isInitialized = false;
-    
-    private void Awake()
+    public abstract class LifetimeScope : MonoBehaviour, IInstaller, ILifetimeScope
     {
-        TryInitialize();
-    }
+        private IRegistrationContainer _registrationContainer;
+        IRegistrationContainer ILifetimeScope.RegistrationContainer => _registrationContainer;
     
-    public void TryInitialize()
-    {
-        if (_isInitialized)
-            return;
-        
-        BeforeInitialize(_registrationContainer);
-
-        KernelMyContainer.Instance.SetupNewScope(this);
-        _registrationContainer = new RegistrationContainer(KernelMyContainer.Instance.GetRegistrationsData(this));
-        Configure(_registrationContainer);
-        _registrationContainer.BuildContainer();
-
-        _isInitialized = true;
-        
-        AfterInitialize(_registrationContainer);
-    }
+        private bool _isInitialized = false;
     
-    protected virtual void AfterInitialize(IRegistrationContainer container) { }
-    protected virtual void BeforeInitialize(IRegistrationContainer container) { }
+        private void Awake()
+        {
+            TryInitialize();
+        }
     
-    public abstract void Configure(IRegistrationContainer container);
-
-    public void Dispose()
-    {
+        public void TryInitialize()
+        {
+            if (_isInitialized)
+                return;
         
+            BeforeInitialize(_registrationContainer);
+
+            KernelMyContainer.Instance.SetupNewScope(this);
+            _registrationContainer = new RegistrationContainer(KernelMyContainer.Instance.GetRegistrationsData(this));
+            Configure(_registrationContainer);
+            _registrationContainer.BuildContainer();
+
+            _isInitialized = true;
+        
+            AfterInitialize(_registrationContainer);
+        }
+    
+        protected virtual void AfterInitialize(IRegistrationContainer container) { }
+        protected virtual void BeforeInitialize(IRegistrationContainer container) { }
+    
+        public abstract void Configure(IRegistrationContainer container);
+
+        public void Dispose()
+        {
+        
+        }
     }
 }

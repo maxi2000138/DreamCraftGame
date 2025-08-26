@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
-public sealed class Registry
+namespace App.Scripts.Infrastructure.DI.Registry
 {
-    private IDictionary<Type, Registration> _registrations = new Dictionary<Type, Registration>(128);
+    public sealed class Registry
+    {
+        private IDictionary<Type, Registration.Registration> _registrations = new Dictionary<Type, Registration.Registration>(128);
+    }
 }

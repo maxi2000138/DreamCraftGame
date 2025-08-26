@@ -1,4 +1,4 @@
-﻿using App.Scripts.Game.Features.Units.Shared.Data;
+﻿using App.Scripts.Game.Features.Units.Shared.Interfaces;
 using UnityEngine;
 
 namespace App.Scripts.Game.Features.Units.Shared.Services

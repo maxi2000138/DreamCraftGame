@@ -1,7 +1,6 @@
 using System;
-using System.Runtime.CompilerServices;
 
-namespace MyContainer.Container
+namespace App.Scripts.Infrastructure.DI.Registration.Container.Extensions
 {
     public static class RegistrationExtensions
     {

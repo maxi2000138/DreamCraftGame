@@ -1,6 +1,8 @@
 using System;
-
-public interface IScopeRegistry : IDisposable
+namespace App.Scripts.Infrastructure.DI.Registry
 {
+  public interface IScopeRegistry : IDisposable
+  {
     
+  }
 }

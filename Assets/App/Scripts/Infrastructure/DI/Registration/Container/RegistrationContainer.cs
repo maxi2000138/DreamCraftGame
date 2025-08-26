@@ -1,9 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using App.Scripts.Infrastructure.DI.Exception;
+using App.Scripts.Infrastructure.DI.Instantiator;
 using Sirenix.Utilities;
 
-namespace MyContainer.Container
+namespace App.Scripts.Infrastructure.DI.Registration.Container
 {
     public class RegistrationContainer : IRegistrationContainer
     {

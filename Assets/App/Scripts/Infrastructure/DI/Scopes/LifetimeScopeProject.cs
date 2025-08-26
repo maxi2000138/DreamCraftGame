@@ -1,5 +1,6 @@
-using MyContainer.Container;
-namespace Scopes
+using App.Scripts.Infrastructure.DI.Registration.Container;
+
+namespace App.Scripts.Infrastructure.DI.Scopes
 {
   public abstract class LifetimeScopeProject : LifetimeScope
   {

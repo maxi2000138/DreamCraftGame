@@ -15,13 +15,7 @@ namespace App.Scripts.Game.Features.Units.Enemy._Configs
   public class EnemyData
   {
     public EnemyComponent Prefab;
-    [Range(1f, 10f)]
-    public float Speed;
-    [Range(10, 100)]
-    public int Health;
-    [Range(0.3f, 3f)]
-    public float AttackRange;
-    [Range(0.3f, 3f)]
-    public float AttackDelay;
+    [Range(1f, 10f)] public float Speed;
+    [Range(10, 100)] public int Health;
   }
 }

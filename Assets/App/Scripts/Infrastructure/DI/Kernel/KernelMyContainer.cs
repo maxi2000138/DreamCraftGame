@@ -1,113 +1,116 @@
 using System.Collections.Generic;
-using MyContainer.Container;
-using Scopes;
+using App.Scripts.Infrastructure.DI.Registration;
+using App.Scripts.Infrastructure.DI.Registry;
+using App.Scripts.Infrastructure.DI.Scopes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class KernelMyContainer
+namespace App.Scripts.Infrastructure.DI.Kernel
 {
-    private const string BootstrapScopePath = "Infrastructure/BootstrapScope";
-    private const string BootstrapScopeName = "BootstrapScope";
-    
-    public static KernelMyContainer Instance
+    public class KernelMyContainer
     {
-        get
+        private const string BootstrapScopePath = "Infrastructure/BootstrapScope";
+        private const string BootstrapScopeName = "BootstrapScope";
+    
+        public static KernelMyContainer Instance
         {
-            if (_instance == null) 
-                _instance = new KernelMyContainer();
+            get
+            {
+                if (_instance == null) 
+                    _instance = new KernelMyContainer();
 
-            return _instance;
+                return _instance;
+            }
         }
-    }
     
-    private static KernelMyContainer _instance;
+        private static KernelMyContainer _instance;
 
-    private bool _projectScopeInitialized;
+        private bool _projectScopeInitialized;
 
-    private readonly ProjectScopeRegistry _projectScopeRegistry = new();
-    private readonly SceneScopeRegistry _sceneScopeRegistry = new();
+        private readonly ProjectScopeRegistry _projectScopeRegistry = new();
+        private readonly SceneScopeRegistry _sceneScopeRegistry = new();
 
-    public void TryInitProjectScope()
-    {
-        if (_projectScopeInitialized)
-            return;
+        public void TryInitProjectScope()
+        {
+            if (_projectScopeInitialized)
+                return;
             
-        LifetimeScopeProject scopeProject = SpawnProjectScope();
-        scopeProject.TryInitialize();
+            LifetimeScopeProject scopeProject = SpawnProjectScope();
+            scopeProject.TryInitialize();
         
-        _projectScopeInitialized = true;
-    }
-    
-    private LifetimeScopeProject SpawnProjectScope()
-    {
-        LifetimeScopeProject scopeProjectPrefab = Resources.Load<LifetimeScopeProject>(BootstrapScopePath);
-        LifetimeScopeProject scopeProject = Object.Instantiate(scopeProjectPrefab);
-        scopeProject.name = BootstrapScopeName;
-        return scopeProject;
-    }
-    
-    public void SetupNewScope(LifetimeScope scope)
-    {
-        VisitorSetupNewScope visitor = new VisitorSetupNewScope(_projectScopeRegistry, _sceneScopeRegistry);
-        visitor.Visit(scope);  
-    }
-    
-    public IEnumerable<RegistrationData> GetRegistrationsData(LifetimeScope scope)
-    {
-        VisitorGetRegistrationsData visitor = new VisitorGetRegistrationsData(_projectScopeRegistry, _sceneScopeRegistry);
-        visitor.Visit(scope);
-        return visitor.RegistrationsData;
-    }
-    
-    private class VisitorSetupNewScope : VisitorLifetimeScopeBase
-    {
-        private readonly ProjectScopeRegistry _projectScopeRegistry;
-        private readonly SceneScopeRegistry _sceneScopeRegistry;
-
-
-        public VisitorSetupNewScope(ProjectScopeRegistry projectScopeRegistry, SceneScopeRegistry sceneScopeRegistry)
-        {
-            _projectScopeRegistry = projectScopeRegistry;
-            _sceneScopeRegistry = sceneScopeRegistry;
+            _projectScopeInitialized = true;
         }
-        public override void Visit(LifetimeScopeProject visitor)
+    
+        private LifetimeScopeProject SpawnProjectScope()
         {
-            _projectScopeRegistry.Add(visitor);
+            LifetimeScopeProject scopeProjectPrefab = Resources.Load<LifetimeScopeProject>(BootstrapScopePath);
+            LifetimeScopeProject scopeProject = Object.Instantiate(scopeProjectPrefab);
+            scopeProject.name = BootstrapScopeName;
+            return scopeProject;
         }
-        public override void Visit(LifetimeScopeScene visitor)
+    
+        public void SetupNewScope(LifetimeScope scope)
         {
-            _sceneScopeRegistry.Add(visitor);
+            VisitorSetupNewScope visitor = new VisitorSetupNewScope(_projectScopeRegistry, _sceneScopeRegistry);
+            visitor.Visit(scope);  
         }
-    }
-
-    private class VisitorGetRegistrationsData : VisitorLifetimeScopeBase
-    {
-        public IEnumerable<RegistrationData> RegistrationsData { get; private set; }
-
-        private readonly SceneScopeRegistry _sceneScopeRegistry;
-        private readonly ProjectScopeRegistry _projectScopeRegistry;
-
-        public VisitorGetRegistrationsData(ProjectScopeRegistry projectScopeRegistry, SceneScopeRegistry sceneScopeRegistry)
+    
+        public IEnumerable<RegistrationData> GetRegistrationsData(LifetimeScope scope)
         {
-            _projectScopeRegistry = projectScopeRegistry;
-            _sceneScopeRegistry = sceneScopeRegistry;
+            VisitorGetRegistrationsData visitor = new VisitorGetRegistrationsData(_projectScopeRegistry, _sceneScopeRegistry);
+            visitor.Visit(scope);
+            return visitor.RegistrationsData;
         }
-        public override void Visit(LifetimeScopeProject visitor)
+    
+        private class VisitorSetupNewScope : VisitorLifetimeScopeBase
         {
-            RegistrationsData = new List<RegistrationData>
+            private readonly ProjectScopeRegistry _projectScopeRegistry;
+            private readonly SceneScopeRegistry _sceneScopeRegistry;
+
+
+            public VisitorSetupNewScope(ProjectScopeRegistry projectScopeRegistry, SceneScopeRegistry sceneScopeRegistry)
             {
-                new RegistrationData()
-            };
-        }
-        public override void Visit(LifetimeScopeScene visitor)
-        {
-            RegistrationsData = new List<RegistrationData>
+                _projectScopeRegistry = projectScopeRegistry;
+                _sceneScopeRegistry = sceneScopeRegistry;
+            }
+            public override void Visit(LifetimeScopeProject visitor)
             {
-                new RegistrationData()
-                , _projectScopeRegistry.Scope.RegistrationContainer.CurrentRegistrationData
-            };
+                _projectScopeRegistry.Add(visitor);
+            }
+            public override void Visit(LifetimeScopeScene visitor)
+            {
+                _sceneScopeRegistry.Add(visitor);
+            }
         }
+
+        private class VisitorGetRegistrationsData : VisitorLifetimeScopeBase
+        {
+            public IEnumerable<RegistrationData> RegistrationsData { get; private set; }
+
+            private readonly SceneScopeRegistry _sceneScopeRegistry;
+            private readonly ProjectScopeRegistry _projectScopeRegistry;
+
+            public VisitorGetRegistrationsData(ProjectScopeRegistry projectScopeRegistry, SceneScopeRegistry sceneScopeRegistry)
+            {
+                _projectScopeRegistry = projectScopeRegistry;
+                _sceneScopeRegistry = sceneScopeRegistry;
+            }
+            public override void Visit(LifetimeScopeProject visitor)
+            {
+                RegistrationsData = new List<RegistrationData>
+                {
+                    new RegistrationData()
+                };
+            }
+            public override void Visit(LifetimeScopeScene visitor)
+            {
+                RegistrationsData = new List<RegistrationData>
+                {
+                    new RegistrationData()
+                    , _projectScopeRegistry.Scope.RegistrationContainer.CurrentRegistrationData
+                };
+            }
         
-        private static Scene ActiveScene() => SceneManager.GetActiveScene();
+            private static Scene ActiveScene() => SceneManager.GetActiveScene();
+        }
     }
 }
