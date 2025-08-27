@@ -13,11 +13,13 @@ namespace App.Scripts.Game.Features.Input.Services
     
     private readonly ICameraService _cameraService;
     private readonly Subject<Vector3> _clickSubject = new Subject<Vector3>();
+    private readonly Subject<int> _changeWeaponSubject = new Subject<int>();
     
     private float _deadZoneSqrRadius;
 
     Observable<Vector3> IInputService.OnClick => _clickSubject;
-    public float DeadZoneSqrSqrRadius => _deadZoneSqrRadius;
+    Observable<int> IInputService.SelectWeapon => _changeWeaponSubject;
+    float IInputService.DeadZoneSqrSqrRadius => _deadZoneSqrRadius;
 
     public PcInputService(ICameraService cameraService)
     {
@@ -36,7 +38,7 @@ namespace App.Scripts.Game.Features.Input.Services
 
       return new Vector2(horizontal, vertical).normalized;
     }
-
+    
     void IInputService.Update()
     {
       if (UnityEngine.Input.GetMouseButtonDown(0))
@@ -47,6 +49,18 @@ namespace App.Scripts.Game.Features.Input.Services
         if (Physics.Raycast(screenPointToRay, out RaycastHit hit, float.MaxValue, Layers.Ground))
         { 
           _clickSubject.OnNext(hit.point);
+        }
+      }
+      
+      if (!string.IsNullOrEmpty(UnityEngine.Input.inputString))
+      {
+        char c = UnityEngine.Input.inputString[0];
+
+        if (char.IsDigit(c))
+        {
+          int weaponIndex = c - '0';
+          if (weaponIndex > 0) 
+            _changeWeaponSubject.OnNext(weaponIndex);
         }
       }
     }

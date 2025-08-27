@@ -161,7 +161,7 @@ MonoBehaviour:
       Data: 5
     - Name: Speed
       Entry: 4
-      Data: 15
+      Data: 25
     - Name: RechargeTime
       Entry: 4
       Data: 1

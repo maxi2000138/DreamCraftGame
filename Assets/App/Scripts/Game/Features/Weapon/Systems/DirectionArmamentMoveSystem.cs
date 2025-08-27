@@ -1,4 +1,5 @@
 ﻿using App.Scripts.Game.Features.Weapon.Components;
+using App.Scripts.Game.Features.Weapon.Components.Armaments;
 using App.Scripts.Game.Infrastructure.Systems.Systems;
 using App.Scripts.Utils.Extensions;
 using UnityEngine;

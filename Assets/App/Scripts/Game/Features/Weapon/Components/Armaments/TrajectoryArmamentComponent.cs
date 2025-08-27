@@ -1,7 +1,7 @@
 ﻿using App.Scripts.Game.Infrastructure.Systems.Components;
 using UnityEngine;
 
-namespace App.Scripts.Game.Features.Weapon.Components
+namespace App.Scripts.Game.Features.Weapon.Components.Armaments
 {
   public class TrajectoryArmamentComponent : MonoComponent<TrajectoryArmamentComponent>
   {

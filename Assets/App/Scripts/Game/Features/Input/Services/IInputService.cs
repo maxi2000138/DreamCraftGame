@@ -9,6 +9,7 @@ namespace App.Scripts.Game.Features.Input.Services
     void Update();
     Vector2 GetAxis();
     Observable<Vector3> OnClick { get; }
+    Observable<int> SelectWeapon { get; }
     float DeadZoneSqrSqrRadius { get; }
   }
 }

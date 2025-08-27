@@ -1,5 +1,6 @@
 ﻿using System;
 using App.Scripts.Game.Features.Weapon.Components;
+using App.Scripts.Game.Features.Weapon.Components.Armaments;
 using App.Scripts.Infrastructure.Pool.Item;
 using UnityEngine;
 using UnityEngine.Serialization;

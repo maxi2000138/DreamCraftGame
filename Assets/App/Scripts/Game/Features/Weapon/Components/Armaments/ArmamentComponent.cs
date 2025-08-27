@@ -2,7 +2,7 @@
 using R3;
 using UnityEngine;
 
-namespace App.Scripts.Game.Features.Weapon.Components
+namespace App.Scripts.Game.Features.Weapon.Components.Armaments
 {
   public class ArmamentComponent : MonoComponent<ArmamentComponent>
   {

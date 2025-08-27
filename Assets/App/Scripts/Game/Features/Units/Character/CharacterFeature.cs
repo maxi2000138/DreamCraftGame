@@ -9,6 +9,7 @@ namespace App.Scripts.Game.Features.Units.Character
     public CharacterFeature(ISystemFactory systems)
     {
       Add(systems.Create<CharacterInitializeSystem>());
+      Add(systems.Create<ChangeWeaponSystem>());
       Add(systems.Create<CharacterMoveSystem>());
       Add(systems.Create<CharacterShootSystem>());
       

@@ -1,6 +1,6 @@
 ﻿using App.Scripts.Game.Infrastructure.Systems.Components;
 
-namespace App.Scripts.Game.Features.Weapon.Components
+namespace App.Scripts.Game.Features.Weapon.Components.Armaments
 {
   public class CollisionArmament : MonoComponent<CollisionArmament>
   {

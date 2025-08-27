@@ -1,4 +1,5 @@
 ﻿using App.Scripts.Game.Features.Weapon.Components;
+using App.Scripts.Game.Features.Weapon.Components.Armaments;
 using App.Scripts.Game.Features.Weapon.Data;
 using App.Scripts.Game.Features.Weapon.Variations;
 using App.Scripts.Infrastructure.Pool;
