@@ -45,7 +45,7 @@ namespace App.Scripts.Game.Features.Units.Character.Systems
       
       component.WeaponMediator
         .SetWeapon(_weaponFactory
-          .CreateWeapon(WeaponType.Rifle, component.WeaponMediator.Container.position, component.WeaponMediator.Container));
+          .CreateWeapon(WeaponType.Bazooka, component.WeaponMediator.Container.position, component.WeaponMediator.Container));
     }
   }
 }

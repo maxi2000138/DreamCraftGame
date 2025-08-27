@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace App.Scripts.Game.Features.Weapon.Components
 {
-  public class DirectionArmament : MonoComponent<DirectionArmament>
+  public class DirectionArmamentComponent : MonoComponent<DirectionArmamentComponent>
   {
     public ArmamentComponent Armament { get; private set; }
     public Vector3 Direction { get; private set; }

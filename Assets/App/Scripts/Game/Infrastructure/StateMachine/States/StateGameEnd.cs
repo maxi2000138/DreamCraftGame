@@ -45,7 +45,7 @@ namespace App.Scripts.Game.Infrastructure.StateMachine.States
     
     private void ResetAllServices()
     {
-      _objectPool.ReleaseAll();
+      _objectPool.DestroyAll();
       GameUniqueId.Reset();
     }
   }

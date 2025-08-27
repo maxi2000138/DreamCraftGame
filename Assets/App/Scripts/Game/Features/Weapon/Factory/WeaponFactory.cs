@@ -3,9 +3,11 @@ using App.Scripts.Game.Features.Weapon.Data;
 using App.Scripts.Game.Features.Weapon.Variations;
 using App.Scripts.Infrastructure.Pool;
 using App.Scripts.Infrastructure.StaticData;
+using App.Scripts.Utils;
 using App.Scripts.Utils.Extensions;
 using Unity.VisualScripting;
 using UnityEngine;
+using Unit = R3.Unit;
 
 namespace App.Scripts.Game.Features.Weapon.Factory
 {
@@ -56,33 +58,42 @@ namespace App.Scripts.Game.Features.Weapon.Factory
     
     private ArmamentComponent CreateRifleArmament(WeaponCharacteristic weaponCharacteristic, Vector3 spawnPosition, Vector3 mousePosition)
     {
-      Vector3 direction = mousePosition - spawnPosition;
+      Vector3 direction = (mousePosition - spawnPosition).normalized;
 
       ArmamentComponent armament = _pool.SpawnObject(weaponCharacteristic.ArmamentPrefab, spawnPosition, Quaternion.identity, null)
         .GetComponent<ArmamentComponent>();
       
       armament.SetDamage(weaponCharacteristic.Damage);
       armament.SetSpeed(weaponCharacteristic.Speed);
+      armament.SetLifetime(weaponCharacteristic.Lifetime);
       
-      armament.AddComponent<DirectionArmament>().Init(armament, direction);
-      armament.AddComponent<EnemyCollisionArmament>().Init(armament, weaponCharacteristic.CollisionSqrDistance);
+      armament.GetComponent<DirectionArmamentComponent>().Init(armament, direction);
+      armament.GetComponent<CollisionArmament>().Init(armament, weaponCharacteristic.CollisionSqrDistance);
       
+      armament.Spawned.OnNext(Unit.Default);
       return armament;
     }
     
     private ArmamentComponent CreateBazookaArmament(WeaponCharacteristic weaponCharacteristic, Vector3 spawnPosition, Vector3 mousePosition)
     {
-      Vector3 targetPosition = mousePosition.SetY(0f);
+      Vector3 direction = (mousePosition - spawnPosition).normalized;
+      Vector3 targetPosition = mousePosition.SetY(spawnPosition.y);
 
       ArmamentComponent armament = _pool.SpawnObject(weaponCharacteristic.ArmamentPrefab, spawnPosition, Quaternion.identity, null)
         .GetComponent<ArmamentComponent>();
       
       armament.SetDamage(weaponCharacteristic.Damage);
       armament.SetSpeed(weaponCharacteristic.Speed);
+      armament.SetLifetime(weaponCharacteristic.Lifetime);
       
-      armament.AddComponent<TrajectoryArmamentComponent>().Init(armament, targetPosition);
-      armament.AddComponent<TargetExplosionArmament>().Init(armament, weaponCharacteristic.ExplosionRadius, targetPosition);
+      float initialSqrDistance = armament.transform.position.HorizontalProjectedSqrDistance(targetPosition);
+      armament.GetComponent<TrajectoryArmamentComponent>()
+        .Init(armament, targetPosition, weaponCharacteristic.ThrowHeight, weaponCharacteristic.ThrowCurve, initialSqrDistance, spawnPosition.y);
+      armament.GetComponent<TargetExplosionArmamentComponent>()
+        .Init(armament, Mathf.Pow(weaponCharacteristic.ExplosionRadius,2), targetPosition);
+      armament.GetComponent<DirectionArmamentComponent>().Init(armament, direction);
       
+      armament.Spawned.OnNext(Unit.Default);
       return armament;
     }
   }

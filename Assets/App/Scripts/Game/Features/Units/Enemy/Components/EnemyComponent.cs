@@ -17,6 +17,6 @@ namespace App.Scripts.Game.Features.Units.Enemy.Components
     public HealthComponent Health => _health;
     
     public Vector3 Position => transform.position;
-    public float Height => 1f;
+    public float Height => 2f;
   }
 }

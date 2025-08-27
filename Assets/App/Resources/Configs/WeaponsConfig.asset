@@ -17,7 +17,8 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 3899474978967079934, guid: 5378c4c765a26834fb4cc2340c1403af, type: 3}
-    - {fileID: 5184285743890790766, guid: 30a3ad61a6adcda4990697ebe09a3b48, type: 3}
+    - {fileID: 3016185664335273157, guid: f88f94a1a098d0c4a8ab33dec00358bd, type: 3}
+    - {fileID: 3016185664335273157, guid: 8bdcb4f225143444e8186f81bde686ca, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -43,7 +44,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -64,7 +65,7 @@ MonoBehaviour:
       Data: 1
     - Name: Speed
       Entry: 4
-      Data: 0
+      Data: 10
     - Name: RechargeTime
       Entry: 4
       Data: 1
@@ -77,6 +78,15 @@ MonoBehaviour:
     - Name: AttackSqrRange
       Entry: 4
       Data: 3
+    - Name: ThrowHeight
+      Entry: 4
+      Data: 0
+    - Name: Lifetime
+      Entry: 4
+      Data: 3
+    - Name: ThrowCurve
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -100,22 +110,199 @@ MonoBehaviour:
       Data: 1
     - Name: Damage
       Entry: 3
-      Data: 1
+      Data: 3
     - Name: Speed
       Entry: 4
-      Data: 1
+      Data: 15
     - Name: RechargeTime
       Entry: 4
       Data: 1
     - Name: CollisionSqrDistance
       Entry: 4
-      Data: 0.7
+      Data: 1.5
     - Name: ExplosionRadius
       Entry: 4
       Data: 0
     - Name: AttackSqrRange
       Entry: 4
+      Data: 0
+    - Name: ThrowHeight
+      Entry: 4
+      Data: 0
+    - Name: Lifetime
+      Entry: 4
+      Data: 3
+    - Name: ThrowCurve
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 4|App.Scripts.Game.Features.Weapon.Data.WeaponCharacteristic, Assembly-CSharp
+    - Name: WeaponPrefab
+      Entry: 10
+      Data: 0
+    - Name: ArmamentPrefab
+      Entry: 10
+      Data: 2
+    - Name: Damage
+      Entry: 3
       Data: 5
+    - Name: Speed
+      Entry: 4
+      Data: 15
+    - Name: RechargeTime
+      Entry: 4
+      Data: 1
+    - Name: CollisionSqrDistance
+      Entry: 4
+      Data: 0
+    - Name: ExplosionRadius
+      Entry: 4
+      Data: 5
+    - Name: AttackSqrRange
+      Entry: 4
+      Data: 0
+    - Name: ThrowHeight
+      Entry: 4
+      Data: 2
+    - Name: Lifetime
+      Entry: 4
+      Data: 3
+    - Name: ThrowCurve
+      Entry: 7
+      Data: 5|UnityEngine.AnimationCurve, UnityEngine.CoreModule
+    - Name: 
+      Entry: 7
+      Data: 6|UnityEngine.Keyframe[], UnityEngine.CoreModule
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 0
+    - Name: m_Value
+      Entry: 4
+      Data: 0
+    - Name: m_InTangent
+      Entry: 4
+      Data: 1.42857146
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 1.42857146
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 0.7
+    - Name: m_Value
+      Entry: 4
+      Data: 1
+    - Name: m_InTangent
+      Entry: 4
+      Data: 0.0439007953
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 0.0439007953
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 0
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0.2097502
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 1
+    - Name: m_Value
+      Entry: 4
+      Data: 0
+    - Name: m_InTangent
+      Entry: 4
+      Data: -3.33333325
+    - Name: m_OutTangent
+      Entry: 4
+      Data: -3.33333325
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 3
+      Data: 8
+    - Name: 
+      Entry: 3
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

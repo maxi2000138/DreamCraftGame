@@ -2,7 +2,7 @@
 
 namespace App.Scripts.Game.Features.Weapon.Components
 {
-  public class EnemyCollisionArmament : MonoComponent<EnemyCollisionArmament>
+  public class CollisionArmament : MonoComponent<CollisionArmament>
   {
     public ArmamentComponent Armament { get; private set; }
     public float CollisionSqrDistance { get; private set; }

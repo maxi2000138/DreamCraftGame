@@ -36,7 +36,6 @@ namespace App.Scripts.Infrastructure.LifeTime
     
     private void InitGlobalServices()
     {
-      _poolService.Init();
       _inputService.Init();
     }
   }

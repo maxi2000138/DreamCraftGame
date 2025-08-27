@@ -40,31 +40,6 @@ namespace App.Scripts.Infrastructure.Pool
 		    return UniTask.CompletedTask;
 	    }
 	    
-	    void IObjectPoolService.Execute()
-	    {
-		    if (_logStatus && _dirty)
-		    {
-			    PrintStatus();
-			    
-			    _dirty = false;
-		    }
-
-		    if (_release.Count > 0)
-		    {
-			    for (int i = _release.Count - 1; i >= 0; i--)
-			    {
-				    _release[i].Time -= UnityEngine.Time.deltaTime;
-
-				    if (_release[i].Time < 0f)
-				    {
-					    Release(_release[i].Item);
-					    
-					    _release.Remove(_release[i]);
-				    }
-			    }
-		    }
-	    }
-
 	    MonoSpawnableItem IObjectPoolService.SpawnObject(MonoSpawnableItem prefab)
 	    {
 		    return Spawn(prefab);
@@ -79,14 +54,7 @@ namespace App.Scripts.Infrastructure.Pool
 	    {
 		    Release(clone);
 	    }
-
-	    void IObjectPoolService.ReleaseObjectAfterTime(MonoSpawnableItem clone, float time)
-	    {
-		    ObjectPoolContainer<MonoSpawnableItem> container = _instanceLookup[clone].GetContainer(clone);
-		    container.Time = time;
-		    _release.Add(container);
-	    }
-
+	    
 	    void IObjectPoolService.ReleaseAll()
 	    {
 		    foreach (KeyValuePair<MonoSpawnableItem, ObjectPool<MonoSpawnableItem>> keyValuePair in _instanceLookup)
@@ -97,6 +65,11 @@ namespace App.Scripts.Infrastructure.Pool
 		    
 		    _release.Clear();
 		    _instanceLookup.Clear();
+	    }
+
+	    void IObjectPoolService.DestroyAll()
+	    {
+		    GameObject.Destroy(_root.gameObject);
 	    }
 
 	    private void Warm(MonoSpawnableItem prefab, int size)
@@ -132,7 +105,7 @@ namespace App.Scripts.Infrastructure.Pool
 		    
 		    clone.transform.position = position;
 		    clone.transform.rotation = rotation;
-		    if (parent != null) clone.transform.parent = parent;
+		    if (parent != null) clone.transform.SetParent(parent);
 
 		    _instanceLookup.Add(clone, pool);
 		    

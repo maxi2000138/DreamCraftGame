@@ -9,8 +9,12 @@ namespace App.Scripts.Game.Features.Weapon
     public WeaponFeature(ISystemFactory systems)
     {
       Add(systems.Create<ExecuteWeaponSystem>());
+      Add(systems.Create<ProcessArmamentLifetimeSystem>());
       
-      Add(systems.Create<ProcessEnemyCollisionArmamentSystem>());
+      Add(systems.Create<DirectionArmamentMoveSystem>());
+      Add(systems.Create<TrajectoryArmamentMoveSystem>());
+      Add(systems.Create<TargetExplosionArmamentSystem>());
+      Add(systems.Create<ProcessCollisionArmamentSystem>());
     }
   }
 }

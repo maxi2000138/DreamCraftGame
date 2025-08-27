@@ -2,6 +2,7 @@ using App.Scripts.Game.Features;
 using App.Scripts.Game.Features.Units.Shared.Services;
 using App.Scripts.Game.Features.Weapon.Factory;
 using App.Scripts.Game.Features.Weapon.Variations;
+using App.Scripts.Game.Infrastructure.Collision;
 using App.Scripts.Game.Infrastructure.Factory;
 using App.Scripts.Game.Infrastructure.StateMachine;
 using App.Scripts.Game.Infrastructure.StateMachine.States;
@@ -28,6 +29,7 @@ namespace App.Scripts.Game.Infrastructure.LifeTime
       container.Register<IUnitMover, UnitMover>();
       container.Register<IGameFactory, GameFactory>();
       container.Register<IWeaponFactory, WeaponFactory>();
+      container.Register<ICollisionService, CollisionService>();
       
       container.Register<LevelModel>();
 

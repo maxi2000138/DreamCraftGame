@@ -49,6 +49,8 @@
               .AddTo(LifetimeDisposable);
           })
           .AddTo(LifetimeDisposable);
+        
+        _levelModel.EndGame.Subscribe( _ => LifetimeDisposable.Clear());
       }
 
       private void SpawnEnemy()

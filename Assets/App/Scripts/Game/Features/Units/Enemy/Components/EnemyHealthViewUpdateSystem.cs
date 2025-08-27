@@ -47,7 +47,8 @@ namespace App.Scripts.Game.Features.Units.Enemy.Components
 
     private void UpdatePosition(EnemyHealthViewComponent component)
     {
-      if (component.Enemy.Value.Health.IsAlive == false)
+      if (component.Enemy.Value.Health.IsAlive == false 
+          || component.Enemy.Value.Health.CurrentHealth.Value == component.Enemy.Value.Health.MaxHealth)
       {
         component.CanvasGroup.alpha = 0f;
 

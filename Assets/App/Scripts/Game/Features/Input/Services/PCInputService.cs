@@ -1,4 +1,5 @@
 ﻿using App.Scripts.Infrastructure.Camera;
+using App.Scripts.Utils.Constants;
 using UnityEngine;
 using R3;
 
@@ -41,9 +42,12 @@ namespace App.Scripts.Game.Features.Input.Services
       if (UnityEngine.Input.GetMouseButtonDown(0))
       {
         Vector3 mousePos = UnityEngine.Input.mousePosition;
-        Vector3 worldPos = _cameraService.Camera.ScreenToWorldPoint(mousePos);
+        Ray screenPointToRay = _cameraService.Camera.ScreenPointToRay(mousePos);
 
-        _clickSubject.OnNext(worldPos);
+        if (Physics.Raycast(screenPointToRay, out RaycastHit hit, float.MaxValue, Layers.Ground))
+        { 
+          _clickSubject.OnNext(hit.point);
+        }
       }
     }
   }

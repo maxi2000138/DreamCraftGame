@@ -12,6 +12,7 @@ namespace App.Scripts.Game.Features.Units.Enemy
       Add(systems.Create<EnemySpawnSystem>());
       Add(systems.Create<EnemyMoveToCharacterSystem>());
       Add(systems.Create<EnemyAttackCharacterSystem>());
+      Add(systems.Create<EnemyDeathSystem>());
       
       Add(systems.Create<EnemyHealthViewSpawnSystem>());
       Add(systems.Create<EnemyHealthViewUpdateSystem>());
